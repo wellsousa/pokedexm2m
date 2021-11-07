@@ -23,11 +23,6 @@ function Details(){
         async function fecthData(){
             
             let response = await getPokemon(baseUrl + id);
-            //console.log(response.results);
-            //console.log(response.next)
-            //setNextUrl(response.next);
-           // setPrevUrl(response.previous);
-            //await loadingPokemon(response.results);
             
             setPokemonData(response);
 
@@ -47,11 +42,11 @@ function Details(){
         <div className="row">
             <div className="row">
                 <h2>{pokemonData.name}</h2>
-                
-  
-
                             
             </div>  
+            <div className="row">
+                <p>{pokemonData.order}</p>
+            </div>
             <div className="row">
 
                 <div className="col-6">
@@ -64,7 +59,9 @@ function Details(){
 
             <div className="row">
                 <p>Altura: {pokemonData.height}</p>
-
+            </div>
+            <div className="row">
+                <p>Peso: {pokemonData.weight}</p>
             </div>
         </div>
     )

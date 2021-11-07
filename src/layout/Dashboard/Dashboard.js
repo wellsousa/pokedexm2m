@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
 
 import {getAllPokemon, getPokemon} from '../../services/pokemonAPI';
 
@@ -40,13 +41,51 @@ function Dashboard(){
         console.log(_pokemonData)
       }
 
+      const nextPage = async () =>{
+        setLoading(true);
+        
+        let data = await getAllPokemon(nextUrl);
+        
+        await loadingPokemon(data.results);
+        setNextUrl(data.next);
+        setPrevUrl(data.previous);
+        setLoading(false);
+      }
+
+      const previousPage = async () =>{
+
+            if (prevUrl){
+    
+                setLoading(true);
+    
+                let data = await getAllPokemon(prevUrl);
+                await loadingPokemon(data.results);
+                setNextUrl(data.next);
+                setPrevUrl(data.previous);
+                setLoading(false);
+    
+            }
+    
+            return
+        }
+
     return(
         <div className="row">
+            <div className="row">
             
-            {pokemonData.map((pokemon, i) =>{
-                return <Card key={i} pokemon={pokemon}/>
-            })}
+                {pokemonData.map((pokemon, i) =>{
+                    return <Card key={i} pokemon={pokemon}/>
+                })}
 
+            </div>
+            <div className="row navigation">
+                <div className="col-6">
+                    <button className="btn btn-primary" type="submit" onClick={previousPage}>Anterior</button>
+                </div>
+                <div className="col-6">
+                    <button className="btn btn-primary" type="submit" onClick={nextPage}>Proximo</button>
+                </div>
+            </div>
         </div>
     )
 }
