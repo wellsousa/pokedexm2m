@@ -1,2 +1,6 @@
 
 npx create-react-app pokedexm2m
+
+npm install bootstrap
+
+npm install react-router-dom
